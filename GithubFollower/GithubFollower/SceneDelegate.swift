@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return searchNC
     }
+    
     func createfavouriteNC() -> UINavigationController {
         let favouriteVC = FavouritesVC()
         favouriteVC.title = "Favourite VC"
@@ -32,6 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return favouriteNC
     }
+    
     func createTabBar() -> UITabBarController {
         let tabBarVC = UITabBarController()
         
@@ -40,6 +42,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarVC.tabBar.backgroundColor = .systemGray
         return tabBarVC
     }
+    
+    
+    
+    
+    
     func sceneDidDisconnect(_ scene: UIScene) {
     }
 
