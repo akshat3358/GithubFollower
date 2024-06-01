@@ -18,7 +18,7 @@ class SearchVC: UIViewController {
         view.backgroundColor = .systemBackground
         configureLogoImageView()
         configureTextField()
-        configureActionButton()
+        configureCallToActionButton()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,25 +41,24 @@ class SearchVC: UIViewController {
     
     func configureTextField() {
         view.addSubview(usernameTxtField)
-        usernameTxtField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
-            usernameTxtField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 80),
-            usernameTxtField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            usernameTxtField.widthAnchor.constraint(equalToConstant: 250),
+            usernameTxtField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 50),
+            usernameTxtField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            //-50 ,becoz we are subtracting it from view's trailing anchor
+            usernameTxtField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             usernameTxtField.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    func configureActionButton() {
+    func configureCallToActionButton() {
         view.addSubview(callToActionButton)
-        callToActionButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            callToActionButton.topAnchor.constraint(equalTo: self.usernameTxtField.bottomAnchor, constant: 100),
-            callToActionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            callToActionButton.widthAnchor.constraint(equalToConstant: 250),
+            callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            callToActionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            callToActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             callToActionButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
