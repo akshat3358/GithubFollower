@@ -32,13 +32,4 @@ class GFButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
         
     }
-    private let button: UIButton = {
-        let button = UIButton()
-        button.setTitle("Click Me", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        button.layer.cornerRadius = 10
-        
-        return button
-    }()
 }
