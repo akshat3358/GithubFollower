@@ -14,11 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window?.rootViewController = createTabBar()
         window?.makeKeyAndVisible()
+        configureNavigationBar()
     }
     
     func createsearchNC() -> UINavigationController {
         let searchVC = SearchVC()
-        searchVC.title = "Search VC"
+        searchVC.title = "Search"
         searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
         let searchNC = UINavigationController(rootViewController: searchVC)
         
@@ -27,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createfavouriteNC() -> UINavigationController {
         let favouriteVC = FavouritesVC()
-        favouriteVC.title = "Favourite VC"
+        favouriteVC.title = "Favourites"
         favouriteVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         let favouriteNC = UINavigationController(rootViewController: favouriteVC)
         
@@ -42,6 +43,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return tabBarVC
     }
     
+    func configureNavigationBar() {
+        UINavigationBar.appearance().tintColor = .systemGreen
+    }
     
     
     
