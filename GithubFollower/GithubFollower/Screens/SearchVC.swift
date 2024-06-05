@@ -23,7 +23,7 @@ class SearchVC: UIViewController {
         configureLogoImageView()
         configureTextField()
         configureCallToActionButton()
-        ConfigureUITapGestureRecognizer()
+        createDismissKeyboardTapGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +32,7 @@ class SearchVC: UIViewController {
 //        navigationController?.isNavigationBarHidden = true
     }
     
-    func ConfigureUITapGestureRecognizer() {
+    func createDismissKeyboardTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tapGesture)
     }
