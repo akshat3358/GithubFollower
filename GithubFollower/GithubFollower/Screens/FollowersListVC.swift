@@ -13,6 +13,8 @@
 
 import UIKit
 
+
+
 class FollowersListVC: UIViewController {
 
     enum section {
@@ -22,12 +24,14 @@ class FollowersListVC: UIViewController {
     var followers: [Follower] = []
     var collectionView: UICollectionView!
     var datasource: UICollectionViewDiffableDataSource<section,Follower>!
+    var hasMoreFollower : Bool = true
+    var page : Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureCollectionView()
-        getFollowers()
+        getFollowers(username: username, page: page)
         configureDataSource()
     }
     
@@ -45,20 +49,26 @@ class FollowersListVC: UIViewController {
     func configureCollectionView(){
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
+        collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
     }
     
     
-    func getFollowers(){
-        NetworkManager.shared.getFollowers(for: username, page: 1) { [weak self] result in
+    func getFollowers(username: String,page:Int){
+        self.showLoadingView()
+        NetworkManager.shared.getFollowers(for: username, page: page) { [weak self] result in
             guard let self = self else {
                 return
             }
+            self.dismissLoadingView()
             switch result {
                 
             case .success(let followers):
-                self.followers = followers
+                if followers.count < 100 {
+                    hasMoreFollower.toggle()
+                }
+                self.followers.append(contentsOf: followers)
                 self.updateData()
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
@@ -85,4 +95,24 @@ class FollowersListVC: UIViewController {
         
     }
     
+}
+
+extension FollowersListVC : UICollectionViewDelegate {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        
+        if offsetY > contentHeight - height {
+            guard hasMoreFollower else {
+                return
+            }
+            
+            page += 1
+            getFollowers(username: username, page: page)
+            
+        }
+    }
 }
